@@ -8,21 +8,34 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-body: Container(
-  decoration: BoxDecoration(
-    gradient: LinearGradient(
-      begin: Alignment.topRight,
-      end: Alignment.bottomLeft,
-      colors: [
-        Colors.lightBlue, // Light blue at the top right
-        Colors.blue,      // Old blue in the middle
-        Colors.blue,      // Old blue again at the bottom left
-      ],
-      // Adjust the stops if needed to control the flow of the gradient
-      stops: [0.0, 0.5, 1.0],
-    ),
-  ),
-),
+      body: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.white, // Light blue at the top right
+              Colors.lightBlue.shade200, // Old blue in the middle
+              Colors.white,
+            ],
+            // Adjust the stops if needed to control the flow of the gradient
+          ),
+        ),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12),
+                ),
+                border: Border.all()
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
