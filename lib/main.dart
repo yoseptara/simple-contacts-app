@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_contacts_app/pages/contacts_page.dart';
+import 'package:simple_contacts_app/pages/contact-list/contact_list_page.dart';
 import 'package:simple_contacts_app/pages/login_page.dart';
 
 void main() {
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         LoginPage.route: (context) => const LoginPage(),
-        ContactsPage.route: (context) => const ContactsPage(),
+        ContactListPage.route: (context) => const ContactListPage(),
       },
       initialRoute: LoginPage.route,
     );
