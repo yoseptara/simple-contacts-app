@@ -1,24 +1,42 @@
 part of 'contact_list_bloc.dart';
 
-enum ContactListStatus { fetching, failure, fetched }
+enum ContactListStatus { loading, failure, success }
 
 final class ContactListState extends Equatable {
   const ContactListState({
-    this.status = ContactListStatus.fetching,
+    this.status = ContactListStatus.loading,
     this.contacts = const <ContactModel>[],
+    this.filteredContacts = const <ContactModel>[],
+    this.searchQuery = '',
   });
 
   final ContactListStatus status;
   final List<ContactModel> contacts;
 
+  final String searchQuery;
+  final List<ContactModel> filteredContacts;
+
   ContactListState copyWith({
+    String? searchQuery,
     ContactListStatus? status,
     List<ContactModel>? contacts,
-    bool? hasReachedMax,
   }) {
+    final updatedSearchQuery = searchQuery ?? this.searchQuery;
+    final updatedContacts = contacts ?? this.contacts;
+    final updatedFilteredContacts = updatedSearchQuery.isEmpty
+        ? updatedContacts
+        : updatedContacts.where((contact) {
+          final cleanedName = contact.name.trim().toLowerCase();
+          final cleanedEmail = contact.email.trim().toLowerCase();
+          final cleanedQuery = updatedSearchQuery.trim().toLowerCase();
+      return cleanedName.contains(cleanedQuery) || cleanedEmail.contains(cleanedQuery);
+    }).toList();
+
     return ContactListState(
       status: status ?? this.status,
-      contacts: contacts ?? this.contacts,
+      contacts: updatedContacts,
+      searchQuery: updatedSearchQuery,
+      filteredContacts: updatedFilteredContacts,
     );
   }
 
@@ -28,5 +46,5 @@ final class ContactListState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, contacts];
+  List<Object> get props => [status, contacts, searchQuery];
 }

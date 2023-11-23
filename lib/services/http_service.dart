@@ -4,7 +4,15 @@ import 'dart:async';
 import 'dart:io';
 
 class HttpService {
-  final String baseUrl = 'https://yourapi.com/api/';
+  static final HttpService _instance = HttpService._internal();
+
+  factory HttpService() {
+    return _instance;
+  }
+
+  HttpService._internal();
+
+  final String baseUrl = 'https://demo4335191.mockable.io';
   final Map<String, String> _headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -12,9 +20,9 @@ class HttpService {
   };
 
   // GET
-  Future<dynamic> get(String url) async {
+  Future<dynamic> get(String urlPath) async {
     try {
-      final response = await http.get(Uri.parse(baseUrl + url), headers: _headers);
+      final response = await http.get(Uri.parse(baseUrl + urlPath), headers: _headers);
       return _processResponse(response);
     } on SocketException {
       throw Exception('No Internet connection');
@@ -23,19 +31,17 @@ class HttpService {
     }
   }
 
-  // POST
-  Future<dynamic> post(String url, dynamic body) async {
-    try {
-      final response = await http.post(Uri.parse(baseUrl + url), headers: _headers, body: json.encode(body));
-      return _processResponse(response);
-    } on SocketException {
-      throw Exception('No Internet connection');
-    } catch (e) {
-      throw Exception('Unexpected error: $e');
-    }
-  }
+  // Future<dynamic> post(String url, dynamic body) async {
+  //   try {
+  //     final response = await http.post(Uri.parse(baseUrl + url), headers: _headers, body: json.encode(body));
+  //     return _processResponse(response);
+  //   } on SocketException {
+  //     throw Exception('No Internet connection');
+  //   } catch (e) {
+  //     throw Exception('Unexpected error: $e');
+  //   }
+  // }
 
-  // Additional methods for PUT, DELETE, etc. can be added similarly
 
   dynamic _processResponse(http.Response response) {
     switch (response.statusCode) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:simple_contacts_app/pages/contact-list/contact_list_page.dart';
 
+final _findWhitespaceRegex = RegExp(r"\s");
+
 class LoginPage extends StatelessWidget {
-  static const route = '/';
+  static const route = '/login_page';
 
   const LoginPage({super.key});
 
@@ -32,7 +34,7 @@ class LoginPage extends StatelessWidget {
             Container(
               height: 200,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(12),
                   ),
                   color: Colors.white38,
@@ -48,21 +50,21 @@ class LoginPage extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Text(
+           const  Text(
               'Welcome To Flutter',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
+            const Text(
               'Please enter your details to continue',
               style: TextStyle(fontSize: 14, color: Colors.black38),
             ),
             const SizedBox(
               height: 20,
             ),
-            _Form(),
+           const  _Form(),
           ],
         ),
       ),
@@ -71,17 +73,13 @@ class LoginPage extends StatelessWidget {
 }
 
 class _Form extends StatefulWidget {
-  const _Form({
-    super.key,
-  });
+  const _Form();
 
   @override
   State<_Form> createState() => _FormState();
 }
 
 class _FormState extends State<_Form> {
-  final findWhitespaceRegex = RegExp(r"\s");
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
@@ -90,20 +88,8 @@ class _FormState extends State<_Form> {
       return 'Please enter your username';
     }
 
-    if (findWhitespaceRegex.hasMatch(value)) {
+    if (_findWhitespaceRegex.hasMatch(value)) {
       return 'Username with whitespace is not valid';
-    }
-
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-
-    if (findWhitespaceRegex.hasMatch(value)) {
-      return 'Password with whitespace is not valid';
     }
 
     return null;
@@ -129,7 +115,7 @@ class _FormState extends State<_Form> {
         children: [
           TextFormField(
             validator: validateUsername,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'User Name',
               labelStyle: TextStyle(
                 color: Colors.black54,
@@ -144,26 +130,10 @@ class _FormState extends State<_Form> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          TextFormField(
-            validator: validatePassword,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              labelStyle: TextStyle(
-                color: Colors.black54,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              border: UnderlineInputBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-              ),
-            ),
-          ),
+          const InputPasswordField(),
           const SizedBox(
             height: 12,
           ),
@@ -193,6 +163,63 @@ class _FormState extends State<_Form> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class InputPasswordField extends StatefulWidget {
+  const InputPasswordField({
+    super.key,
+  });
+
+  @override
+  State<InputPasswordField> createState() => _InputPasswordFieldState();
+}
+
+class _InputPasswordFieldState extends State<InputPasswordField> {
+  bool isObscured = true;
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+
+    if (_findWhitespaceRegex.hasMatch(value)) {
+      return 'Password with whitespace is not valid';
+    }
+
+    return null;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: validatePassword,
+      obscureText: isObscured,
+      decoration: InputDecoration(
+          labelText: 'Password',
+          labelStyle: const TextStyle(
+            color: Colors.black54,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          border: const UnderlineInputBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+            ),
+          ),
+          suffixIcon: IconButton(
+            onPressed: () {
+              setState(() {
+                isObscured = !isObscured;
+              });
+            },
+            icon: Icon(
+              isObscured ? Icons.visibility : Icons.visibility_off,
+              size: 24,
+            ),
+          )),
     );
   }
 }
