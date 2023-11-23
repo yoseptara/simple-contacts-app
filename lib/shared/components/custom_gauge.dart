@@ -37,7 +37,7 @@ class SegmentPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;
 
-    segments.forEach((segment) {
+    for (SegmentModel segment in segments) {
       final sweepAngle = (segment.value / total) * 2 * pi;
       paint.color = segment.color;
       canvas.drawArc(
@@ -48,7 +48,8 @@ class SegmentPainter extends CustomPainter {
         paint,
       );
       startAngle += sweepAngle;
-    });
+    }
+
   }
 
   @override

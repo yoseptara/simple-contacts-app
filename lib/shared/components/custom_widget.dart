@@ -36,7 +36,7 @@ class CustomWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
@@ -60,7 +60,7 @@ class CustomWidget extends StatelessWidget {
                     children: [
                       Text(
                         total.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -103,12 +103,12 @@ class CustomWidget extends StatelessWidget {
                         ),
                         Text(
                           segment.label,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                             color: Colors.black,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           segment.value.toString(),
                           style: const TextStyle(

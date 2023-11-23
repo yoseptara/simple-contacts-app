@@ -18,7 +18,7 @@ class PageListPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, LoginPage.route);
                 },
-                child: Text('Contacts App Demo')),
+                child: const Text('Contacts App Demo')),
             const SizedBox(
               height: 12,
             ),
@@ -26,7 +26,7 @@ class PageListPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, CustomWidgetPage.route);
                 },
-                child: Text('Custom Widget Demo')),
+                child: const Text('Custom Widget Demo')),
           ],
         ),
       ),

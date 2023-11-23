@@ -113,7 +113,6 @@ class _ContactList extends StatelessWidget {
 
 class _ContactItemTile extends StatelessWidget {
   const _ContactItemTile({
-    super.key,
     required this.contact,
   });
 
@@ -203,9 +202,7 @@ class _ContactItemTile extends StatelessWidget {
 }
 
 class _SearchBox extends StatefulWidget {
-  const _SearchBox({
-    super.key,
-  });
+  const _SearchBox();
 
   @override
   State<_SearchBox> createState() => _SearchBoxState();

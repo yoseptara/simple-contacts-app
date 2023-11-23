@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simple_contacts_app/shared/components/custom_gauge.dart';
 import 'package:simple_contacts_app/shared/components/custom_widget.dart';
 import 'package:simple_contacts_app/shared/models/segment_model.dart';
 
